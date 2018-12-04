@@ -45,7 +45,8 @@ RUN git clone --depth 1 --single-branch --branch release_40 https://github.com/l
 
 
 RUN git clone  https://github.com/cryptonomex/secp256k1-zkp.git \
-    && cd secp256k1-zkp &&./autogen.sh &&./configure &&make&&sudo make install
+    && cd secp256k1-zkp &&./autogen.sh &&./configure &&make
+COPY ./.libs/libsecp256k1.a /go/src/gitlab.33.cn/chain33/chain33/wasmcpp/lib/
 
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssl ca-certificates vim psmisc python3-pip && rm -rf /var/lib/apt/lists/*
