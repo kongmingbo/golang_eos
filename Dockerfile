@@ -46,7 +46,6 @@ RUN git clone --depth 1 --single-branch --branch release_40 https://github.com/l
 
 RUN git clone  https://github.com/cryptonomex/secp256k1-zkp.git \
     && cd secp256k1-zkp &&./autogen.sh &&./configure &&make
-COPY ./.libs/libsecp256k1.a /go/src/gitlab.33.cn/chain33/chain33/wasmcpp/lib/
 
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssl ca-certificates vim psmisc python3-pip && rm -rf /var/lib/apt/lists/*
@@ -54,3 +53,6 @@ RUN pip3 install numpy
 ENV EOSIO_ROOT=/opt/eosio
 ENV LD_LIBRARY_PATH /usr/local/lib
 ENV PATH /opt/eosio/bin:/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+COPY libsecp256.sh /go
+CMD sh /go/libsecp256.sh 
